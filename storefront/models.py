@@ -29,4 +29,10 @@ class Order(models.Model):
         ('F','Failed')
     ]  
     placed_at = models.DateTimeField(auto_now=True)
-    payment_status = models.CharField(max_length=255,Choices=PAYMENT_STATUS_CHOICES)
+    payment_status = models.CharField(max_length=255,Choices=PAYMENT_STATUS_ChOICE)
+    
+    
+class Address(models.Model):
+    Street = models.CharField(max_length=255)
+    City = models.CharField(max_length=255)
+    customer = models.OneToOneField(Customer, on_delete=models.CASCADE, primary_key=True)
