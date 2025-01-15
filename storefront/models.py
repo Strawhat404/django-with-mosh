@@ -1,11 +1,17 @@
 from django.db import models
 
+
+class Collection(models.Model):
+    Name = models.CharField(max_length=255)
+    
+    
 class Product(models.Model):
     title = models.Charfield(max_length=255)
     description = models.Textfield()
     price = models.DecimalField(max_digits=6,decimal_place=2)
     inventory = models.IntegerField()
     last_update = models.DateTimeField(auto_now=True)
+    collection = models.ForeignKey(Collection,on_delete = models.CASCADE)
     
 class Customer(models.Model):
     MEMBERSHIP_BRONZE = 'B'
@@ -30,9 +36,11 @@ class Order(models.Model):
     ]  
     placed_at = models.DateTimeField(auto_now=True)
     payment_status = models.CharField(max_length=255,Choices=PAYMENT_STATUS_ChOICE)
+    customer = models.ForeignKey(Customer,on_delete=models.CASCADE)
     
     
 class Address(models.Model):
     Street = models.CharField(max_length=255)
     City = models.CharField(max_length=255)
     customer = models.OneToOneField(Customer, on_delete=models.CASCADE, primary_key=True)
+    
