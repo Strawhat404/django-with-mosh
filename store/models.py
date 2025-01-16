@@ -22,4 +22,16 @@ class Customer(models.Model):
     email = models.EmailField(max_length=255,unique=True) 
     phone = models.CharField(max_digits=255)
     birth_date = models.DateField(auto_now= True, null = True)  
-    membership = models.CharField(max_length=255,Choice = MEMBERSHIP_CHOICES, default='B')
+    membership = models.CharField(max_length=255,Choice = MEMBERSHIP_CHOICES, default=MEMBERSHIP_BRONZE )
+    
+class order (models.Model):
+    PAYMENT_PENDING = 'P'
+    PAYMENT_COMPLETE = 'C'
+    PAYMENT_FAILED = 'F'
+    PAYMENT_STATUS = [
+       ( PAYMENT_PENDING,'Pending'),
+       ( PAYMENT_COMPLETE,'C'),
+       ( PAYMENT_FAILED,'F')
+    ]
+    placed_at = models.DatetimeField(auto_now_add=True)
+    payment_status = models.CharField(max_length=5,Choice = PAYMENT_STATUS,default=PAYMENT_PENDING)
